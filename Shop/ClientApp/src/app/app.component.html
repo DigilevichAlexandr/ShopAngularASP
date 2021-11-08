@@ -1,0 +1,27 @@
+<body>
+    <app-nav-menu></app-nav-menu>
+
+    <mat-drawer-container class="example-container bg-white" autosize>
+        <mat-drawer #drawer [mode]="over" class="example-sidenav bg-white" position="end" mode="side">
+            <section style="height: 200px; width: 200px;background-color: #efefef;">
+                <p class="font-weight-bold ml-1 mr-3" style="color:#adafb1">Shopping Bag</p>
+            </section>
+
+            <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+            <button class="bg-primary border-0 rounded text-white float-right" style="position: absolute;bottom: 0;right: 0;margin: 20px;">
+            Confirm And Pay
+          </button>
+        </mat-drawer>
+
+        <div class="example-sidenav-content">
+            <div class="row">
+                <app-side-bar class="col-2"></app-side-bar>
+                <div class="container col-10">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+
+    </mat-drawer-container>
+
+</body>

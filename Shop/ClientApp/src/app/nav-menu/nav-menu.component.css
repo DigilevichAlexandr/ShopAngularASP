@@ -1,0 +1,50 @@
+nav {
+    background-color: rgb(238, 238, 238);
+}
+
+a.navbar-brand {
+    color: black;
+    padding-left: 2%;
+}
+
+button {
+    background-color: rgb(238, 238, 238);
+    margin: 1%;
+    border-radius: 5px;
+    border-color: rgb(136, 135, 135);
+}
+
+button:hover {
+    background-color: blue;
+}
+
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.example-container {
+    width: 500px;
+    height: 300px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.example-sidenav {
+    padding: 20px;
+}
