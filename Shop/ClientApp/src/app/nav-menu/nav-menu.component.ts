@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AppComponent } from '../app.component';
-import { NavigationService } from '../navigation.service';
+import { Product } from '../product';
 import { SidenavService } from '../sidenav-service.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { SidenavService } from '../sidenav-service.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+  bag:Product[] = [];
 
   constructor(private sidenavService: SidenavService) { }
 

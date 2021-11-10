@@ -9,6 +9,7 @@
     text-decoration: none;
     font-size: 25px;
     display: block;
+    border: 1px solid #dee2e6!important;
 }
 
 .sidenav a:hover {

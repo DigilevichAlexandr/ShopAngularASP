@@ -1,8 +1,9 @@
 <header>
     <nav class="navbar border-bottom p-0 m-0">
-        <a class="navbar-brand" [routerLink]="['/']">E-Shop</a>
-        <button class="nav-item button ml-auto" style="border-color: #e3e3e3;box-shadow: none;">
-            <a (click)="toggled()" class="nav-link text-dark">Shopping Bag</a>
+        <a class="navbar-brand font-weight-bold" [routerLink]="['/']">E-Shop</a>
+        <button (click)="toggled()" class="nav-item button ml-auto" style="border-color: #e3e3e3;box-shadow: none;">
+            <a class="nav-link text-dark pr-0" style="display: contents;">Shopping Bag</a>
+            <a *ngIf="bag.length > 0" class="nav-link text-dark pl-0" style="display: contents;">: {{bag.length}} item(s)</a>            
         </button>
     </nav>
 </header>
