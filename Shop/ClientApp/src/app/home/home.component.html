@@ -1,4 +1,6 @@
-<div *ngFor="let product of this.sidebar.products" class="col-sm-6">
-    <app-product [product]="product">
-    </app-product>
+<div class="row">
+    <div *ngFor="let product of this.productService.products" class="col-sm-6">
+        <app-product [product]="product">
+        </app-product>
+    </div>
 </div>

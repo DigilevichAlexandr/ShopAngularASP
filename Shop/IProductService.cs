@@ -8,6 +8,7 @@ namespace Shop
     public interface IProductService
     {
         public IEnumerable<Product> GetProducts(int categoryId);
+        public Product GetProduct(Guid guid);
         public bool IsOnStock(Buy[] buy);
         public string Buy(Buy[] buy);
     }

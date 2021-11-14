@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Shop
                     Image imageIn = Image.FromFile(Path.Combine(Environment.CurrentDirectory, @"ProductImages\", fileName));
                     imageIn.Save(ms, imageIn.RawFormat);
                     //images.Add(fileName, ms.ToArray());
+                    Guid guid = Guid.NewGuid();
+                    Debug.WriteLine(guid.ToString());
                     productList.Add(
                         new Product()
                         {
@@ -30,9 +33,9 @@ namespace Shop
                             Price = 300,
                             Picture = ms.ToArray(),
                             Category = 1,//int.Parse(fileName.Split('\\').Last().Split('.')[0]),
-                            Amount = 5
-                        }
-                        ); ;
+                            Amount = 5,
+                            Guid = guid
+                        });
                 }
 
             return productList;
@@ -53,6 +56,11 @@ namespace Shop
             {
                 return "Some of products from the basket are currently out of stock";
             }
+        }
+
+        public Product GetProduct(Guid guid)
+        {
+            return products.First(p => p.Guid == guid);
         }
 
         public IEnumerable<Product> GetProducts(int category)

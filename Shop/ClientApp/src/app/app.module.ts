@@ -12,7 +12,8 @@ import { ShoppingBagComponent } from './shopping-bag/shopping-bag.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ProductDetailsComponent } from './product-details/product-details.component';
-import { Product } from './product';
+import { ProductService } from './product.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { Product } from './product';
     ]),
     NoopAnimationsModule
   ],
-  providers: [],
+  providers: [
+    ProductService,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

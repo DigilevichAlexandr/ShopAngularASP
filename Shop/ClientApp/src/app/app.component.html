@@ -8,7 +8,7 @@
             </section>
 
             <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-            <button class="bg-primary border-0 rounded text-white float-right" style="position: absolute;bottom: 0;right: 0;margin: 20px;">
+            <button (click)="bay()" class="bg-primary border-0 rounded text-white float-right" style="position: absolute;bottom: 0;right: 0;margin: 20px;">
                 Confirm And Pay
             </button>
         </mat-drawer>
@@ -19,9 +19,7 @@
             <div class="row">
                 <app-side-bar #sidebar class="col-2"></app-side-bar>
                 <div class="container col-10 color-black">
-                    <div class="row">
-                        <router-outlet></router-outlet>
-                    </div>
+                    <router-outlet></router-outlet>
                 </div>
             </div>
         </div>

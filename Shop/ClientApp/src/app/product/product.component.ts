@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ProductService } from '../product.service';
+import { HighlightSpanKind } from 'typescript';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product',
@@ -9,14 +12,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class ProductComponent implements OnInit {
   @Input() product: Product;
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer,
+    private productService: ProductService,
+    private router: Router) { }
   image;
 
   ngOnInit() {
     const byteCharacters = atob(this.product.picture);
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
-      
+
       byteNumbers[i] = byteCharacters.charCodeAt(i);
     }
 
@@ -26,8 +31,8 @@ export class ProductComponent implements OnInit {
     this.image = this.sanitizer.bypassSecurityTrustUrl(unsafeImageUrl);
   }
 
-  addToBag()
-  {
-    
+  buy() {
+    this.productService.details = this.product;
+    this.router.navigate(['details'], { queryParams: { product: this.product.guid } });
   }
 }

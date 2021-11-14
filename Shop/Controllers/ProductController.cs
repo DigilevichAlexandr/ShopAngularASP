@@ -27,10 +27,16 @@ namespace Shop.Controllers
             return productService.GetProducts(category);
         }
 
-        [HttpPost("Stock")]
-        public string Stock([FromBody] Buy[] buy)
+        [HttpGet("product/{guid}")]
+        public Product GetProduct(Guid guid)
         {
-            return productService.IsOnStock(buy).ToString();
+            return productService.GetProduct(guid);
+        }
+
+        [HttpPost("Stock")]
+        public bool Stock([FromBody] Buy[] buy)
+        {
+            return productService.IsOnStock(buy);
         }
 
         [HttpPost("Buy")]

@@ -22,4 +22,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.sidenavService.setDrawer(this.drawer);
   }
+
+  bay()
+  {
+
+  }
 }
