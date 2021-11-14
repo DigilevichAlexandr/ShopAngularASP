@@ -31,9 +31,9 @@ import { CookieService } from 'ngx-cookie-service';
     FormsModule,
     MatSidenavModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'details', component: ProductDetailsComponent }
-    ]),
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'details', component: ProductDetailsComponent }
+], { relativeLinkResolution: 'legacy' }),
     NoopAnimationsModule
   ],
   providers: [
