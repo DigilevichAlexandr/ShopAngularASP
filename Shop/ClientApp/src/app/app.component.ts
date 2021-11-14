@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   constructor(private sidenavService: SidenavService) { }
 
   @ViewChild('drawer', { static: true }) public drawer: MatDrawer;
-  @ViewChild('sidebar', { static: false }) public sidebar: SideBarComponent;
+  @ViewChild('sidebar') public sidebar: SideBarComponent;
 
   ngOnInit() {
     this.sidenavService.setDrawer(this.drawer);
