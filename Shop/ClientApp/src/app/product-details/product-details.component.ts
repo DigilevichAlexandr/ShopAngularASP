@@ -12,9 +12,9 @@ import { ProductService } from '../product.service';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  private valid: boolean = true;
-  private amount: number = 0;
-  private product: Product = this.productService.details;
+  public valid: boolean = true;
+  public amount: number = 0;
+  public product: Product = this.productService.details;
   private guid: string;
   constructor(private httpService: HttpService,
     private productService: ProductService,
