@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AppComponent } from '../app.component';
+import { Buy } from '../buy';
 import { Product } from '../product';
+import { ProductService } from '../product.service';
 import { SidenavService } from '../sidenav-service.service';
 
 @Component({
@@ -9,9 +11,13 @@ import { SidenavService } from '../sidenav-service.service';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
-  bag:Product[] = [];
+  //public bag:Buy[] = [];
+  //public items;
 
-  constructor(private sidenavService: SidenavService) { }
+  constructor(private sidenavService: SidenavService,
+    public productService: ProductService) {
+    //this.items = productService.items;
+  }
 
   toggled() {
     this.sidenavService.toggle();

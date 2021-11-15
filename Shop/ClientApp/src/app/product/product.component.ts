@@ -15,11 +15,12 @@ export class ProductComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer,
     private productService: ProductService,
     private router: Router) { }
-  image;
+  public image;
 
   ngOnInit() {
     const byteCharacters = atob(this.product.picture);
     const byteNumbers = new Array(byteCharacters.length);
+    
     for (let i = 0; i < byteCharacters.length; i++) {
 
       byteNumbers[i] = byteCharacters.charCodeAt(i);

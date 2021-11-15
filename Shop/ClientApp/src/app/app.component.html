@@ -6,8 +6,11 @@
             <section style="height: 200px; width: 200px;background-color: #efefef;">
                 <p class="font-weight-bold ml-1 mr-3" style="color:#adafb1;display:block;">Shopping Bag </p>
             </section>
-
-            <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+            <!-- <div *ngif="cookieService.get('products')">
+                <div *ngFor="let product of cookieService.get('products').split()" class="col-sm-6">
+                    <p>{{product.split(',')[0]}} {{product.split(',')[1]}}</p>
+                </div>
+            </div> -->
             <button (click)="bay()" class="bg-primary border-0 rounded text-white float-right" style="position: absolute;bottom: 0;right: 0;margin: 20px;">
                 Confirm And Pay
             </button>

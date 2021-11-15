@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Buy } from '../buy';
@@ -16,7 +17,9 @@ export class ProductDetailsComponent implements OnInit {
   public amount: number = 0;
   public product: Product = this.productService.details;
   private guid: string;
-  constructor(private httpService: HttpService,
+  public image;
+  constructor(private sanitizer: DomSanitizer,
+    private httpService: HttpService,
     private productService: ProductService,
     private route: ActivatedRoute,
     private cookieService: CookieService) { }
@@ -29,8 +32,11 @@ export class ProductDetailsComponent implements OnInit {
           this.httpService.getProduct(this.guid)
             .subscribe((data: Product) => {
               this.product = data;
+              this.initImage();
             });
-        this.httpService.stock(new Buy(this.guid, this.amount))
+
+        this.initImage();
+        this.httpService.stock([new Buy(this.guid, this.amount)])
           .subscribe((data: boolean) => {
             this.valid = data;
           });
@@ -38,15 +44,53 @@ export class ProductDetailsComponent implements OnInit {
       );
   }
 
+  initImage() {
+    const byteCharacters = atob(this.product.picture);
+    const byteNumbers = new Array(byteCharacters.length);
+
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+    const blob = new Blob([byteArray], { type: "image/jpg" });
+    let unsafeImageUrl = URL.createObjectURL(blob);
+    this.image = this.sanitizer.bypassSecurityTrustUrl(unsafeImageUrl);
+    this.httpService.stock([new Buy(this.guid, this.amount)])
+      .subscribe((data: boolean) => {
+        this.valid = data;
+      });
+
+  }
+
   onAmountChange(searchValue: number) {
-    this.httpService.stock(new Buy(this.guid, searchValue))
+    this.httpService.stock([new Buy(this.guid, searchValue)])
       .subscribe((data: boolean) => {
         this.valid = data;
       });
   }
 
   buy() {
-    this.productService.shoppingBag.push(new Buy(this.guid, this.amount));
-    this.cookieService.set('bag', this.guid + ',' + this.amount);
+    if (this.valid) {
+      this.productService.shoppingBag.push(new Buy(this.guid, this.amount));
+      var productsJason = this.cookieService.get('products');
+      debugger;
+      if (productsJason) {
+        var p: Buy[] = JSON.parse(productsJason);
+        p.push(new Buy(this.guid, this.amount));
+        this.cookieService.set('products', JSON.stringify(p));
+      }
+      else {
+        this.cookieService.set('products', JSON.stringify([new Buy(this.guid, this.amount)]));
+      }
+
+      var items = +this.cookieService.get('bag');
+      this.cookieService.set('bag', (items + this.amount).toString());
+
+
+      //this.cookieService.set('products', products + this.product.name + ',' + this.amount + ' ');
+      this.productService.items = items + this.amount;
+
+    }
   }
 }

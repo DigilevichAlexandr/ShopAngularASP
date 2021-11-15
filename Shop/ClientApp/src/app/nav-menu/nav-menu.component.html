@@ -3,7 +3,7 @@
         <a class="navbar-brand font-weight-bold" [routerLink]="['/']">E-Shop</a>
         <button (click)="toggled()" class="nav-item button ml-auto" style="border-color: #e3e3e3;box-shadow: none;">
             <a class="nav-link text-dark pr-0" style="display: contents;">Shopping Bag</a>
-            <a *ngIf="bag.length > 0" class="nav-link text-dark pl-0" style="display: contents;">: {{bag.length}} item(s)</a>            
+            <a *ngIf="productService.items > 0" class="nav-link text-dark pl-0" style="display: contents;">: {{productService.items}} item(s)</a>            
         </button>
     </nav>
 </header>

@@ -10,14 +10,18 @@ export class HttpService {
   constructor(private http: HttpClient) { }
 
   getProducts(category: string) {
-        return this.http.get('/Product/' + category)
+    return this.http.get('/Product/' + category)
   }
 
   getProduct(guid: string) {
     return this.http.get('/Product/product/' + guid)
-}
+  }
 
-  stock(buy: Buy) {
-    return this.http.post('/Product/Stock', [buy])
-}
+  stock(buy: Buy[]) {
+    return this.http.post('/Product/Stock', buy)
+  }
+
+  buy(buy: Buy[]) {
+    return this.http.post('/Product/Buy', buy)
+  }
 }
