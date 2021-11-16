@@ -2,15 +2,17 @@
     <app-nav-menu></app-nav-menu>
 
     <mat-drawer-container class="color-black bg-white">
-        <mat-drawer #drawer class="example-sidenav bg-white" position="end" mode="side">
+        <mat-drawer (openedChange)="onOpenedChange($event)" #drawer class="example-sidenav bg-white" position="end" mode="side">
             <section style="height: 200px; width: 200px;background-color: #efefef;">
                 <p class="font-weight-bold ml-1 mr-3" style="color:#adafb1;display:block;">Shopping Bag </p>
             </section>
-            <!-- <div *ngif="cookieService.get('products')">
-                <div *ngFor="let product of cookieService.get('products').split()" class="col-sm-6">
-                    <p>{{product.split(',')[0]}} {{product.split(',')[1]}}</p>
+            <div *ngIf="products.length > 0">
+                <div *ngFor="let product of products" class="col-sm-6">
+                    <p>{{product.name}} {{product.amount}}</p>
                 </div>
-            </div> -->
+                <p>Sum is {{sum}} $</p>
+            </div>
+            <p style="color: black;">{{result}}</p>
             <button (click)="bay()" class="bg-primary border-0 rounded text-white float-right" style="position: absolute;bottom: 0;right: 0;margin: 20px;">
                 Confirm And Pay
             </button>

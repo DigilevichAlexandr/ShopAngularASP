@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SelectControlValueAccessor } from '@angular/forms';
 import { MatDrawer } from '@angular/material';
 import { CookieService } from 'ngx-cookie-service';
+import { Buy } from './buy';
 import { HttpService } from './http.service';
 import { Product } from './product';
 import { ProductService } from './product.service';
@@ -18,6 +19,9 @@ export class AppComponent implements OnInit {
   title = 'app';
   items = 0;
   valid = true;
+  result = '';
+  products:Buy[] = [];
+  sum=0;
   //buySuccess = false;
 
   constructor(private httpService: HttpService, private sidenavService: SidenavService, public productService: ProductService,
@@ -28,6 +32,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.sidenavService.setDrawer(this.drawer);
+    
   }
 
   bay() {
@@ -37,24 +42,36 @@ export class AppComponent implements OnInit {
         this.valid = data;
         debugger;
         if (this.valid) {
-          this.httpService.buy(JSON.parse(this.cookieService.get('products')))
-            .subscribe((data: any) => {
-              debugger;
-              alert(data);
-              // if(data){
-              //   alert('Thank you for your purchase!');
-              // }
-              // else{
-              //   alert('Fail!');
-              // }
-
-              this.productService.shoppingBag = [];
-              this.productService.items = 0;
-              this.items = 0;
-              this.cookieService.set('bag', '0');
-              this.cookieService.set('products', '');
-            });
+          this.buyHttp();
+        }
+        else {
+          this.result = 'No product on stock.';
+          this.productService.shoppingBag = [];
+          this.productService.items = 0;
+          this.items = 0;
+          this.cookieService.set('bag', '0');
+          this.cookieService.set('products', '');
         }
       });
+  }
+
+  buyHttp() {
+    this.httpService.buy(JSON.parse(this.cookieService.get('products')))
+      .subscribe((buyResult: boolean) => {
+        debugger;
+        alert(buyResult);
+        this.result = buyResult ? 'Thank you' : 'Sorry, error';
+        this.productService.shoppingBag = [];
+        this.productService.items = 0;
+        this.items = 0;
+        this.cookieService.set('bag', '0');
+        this.cookieService.set('products', '');
+      });
+  }
+
+  onOpenedChange(e: boolean){
+    debugger;
+    this.products = JSON.parse(this.cookieService.get('products'));
+    this.sum = this.products.reduce((sum, current) => sum + current.amount * current.price, 0);
   }
 }

@@ -40,9 +40,9 @@ namespace Shop.Controllers
         }
 
         [HttpPost("Buy")]
-        public string Buy([FromBody] Buy[] buy)
+        public bool Buy([FromBody] Buy[] buy)
         {
-            return productService.Buy(buy); ;
+            return !string.IsNullOrEmpty(productService.Buy(buy));
         }
     }
 }

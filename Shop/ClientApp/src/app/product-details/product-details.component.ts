@@ -36,7 +36,7 @@ export class ProductDetailsComponent implements OnInit {
             });
 
         this.initImage();
-        this.httpService.stock([new Buy(this.guid, this.amount)])
+        this.httpService.stock([new Buy(this.guid, this.amount, this.product.name, this.product.price)])
           .subscribe((data: boolean) => {
             this.valid = data;
           });
@@ -56,7 +56,7 @@ export class ProductDetailsComponent implements OnInit {
     const blob = new Blob([byteArray], { type: "image/jpg" });
     let unsafeImageUrl = URL.createObjectURL(blob);
     this.image = this.sanitizer.bypassSecurityTrustUrl(unsafeImageUrl);
-    this.httpService.stock([new Buy(this.guid, this.amount)])
+    this.httpService.stock([new Buy(this.guid, this.amount, this.product.name, this.product.price)])
       .subscribe((data: boolean) => {
         this.valid = data;
       });
@@ -64,7 +64,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   onAmountChange(searchValue: number) {
-    this.httpService.stock([new Buy(this.guid, searchValue)])
+    this.httpService.stock([new Buy(this.guid, searchValue, this.product.name, this.product.price)])
       .subscribe((data: boolean) => {
         this.valid = data;
       });
@@ -72,16 +72,16 @@ export class ProductDetailsComponent implements OnInit {
 
   buy() {
     if (this.valid) {
-      this.productService.shoppingBag.push(new Buy(this.guid, this.amount));
+      this.productService.shoppingBag.push(new Buy(this.guid, this.amount, this.product.name, this.product.price));
       var productsJason = this.cookieService.get('products');
-      debugger;
+
       if (productsJason) {
         var p: Buy[] = JSON.parse(productsJason);
-        p.push(new Buy(this.guid, this.amount));
+        p.push(new Buy(this.guid, this.amount, this.product.name, this.product.price));
         this.cookieService.set('products', JSON.stringify(p));
       }
       else {
-        this.cookieService.set('products', JSON.stringify([new Buy(this.guid, this.amount)]));
+        this.cookieService.set('products', JSON.stringify([new Buy(this.guid, this.amount, this.product.name, this.product.price)]));
       }
 
       var items = +this.cookieService.get('bag');
